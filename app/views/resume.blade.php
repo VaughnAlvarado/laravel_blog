@@ -203,6 +203,9 @@
     	</div>
   	</div>
 </div>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 </section>
 
 @stop
