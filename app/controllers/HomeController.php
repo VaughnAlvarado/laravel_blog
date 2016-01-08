@@ -25,11 +25,11 @@ class HomeController extends BaseController {
 	}
 	public function showDice($guess = null) 
 	{
-		$dice = mt_rand(0,6);
+		$dice = mt_rand(1,6);
 		$data = ['guess' => $guess, 'dice' => $dice];
 		return View::make('roll-dice')->with($data);
 	}
-	public function sayHello($name) 
+	public function sayHello($name = '') 
 	{
 		 if ($name == "Chris") {
         	return Redirect::to('/');

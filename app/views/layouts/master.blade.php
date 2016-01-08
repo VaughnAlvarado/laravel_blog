@@ -54,6 +54,7 @@
     <script src ="/js/jquery.min.js"></script>
     <script src ="/js/bootstrap.min.js"></script>
     @yield('bottom-script')
+    @yield('stuff')
 </body>
 <footer>
   <p class="pull-right"><a href="#">Back to top</a></p>

@@ -7,4 +7,5 @@
     @else
         <h1>You Were Right!!!!!</h1>
     @endif
+    <a href="{{{action('HomeController@sayHello')}}}">Go Back To Hello Page</a>
 @stop
