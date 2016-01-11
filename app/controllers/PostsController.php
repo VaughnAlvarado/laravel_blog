@@ -31,7 +31,16 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		return Redirect::back()->withInput();
+		$post = new Post();
+		$post->title = Input::get('title');
+		$post->title = Input::get('body');
+		$result = $post->save();
+
+		if ($result) {
+			return Redirect::back()->withInput();
+		} else {
+			Redirect::back();
+		}
 	}
 
 
@@ -43,7 +52,7 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return 'Show a specific one';
+		$post = Post::find($id);
 	}
 
 
