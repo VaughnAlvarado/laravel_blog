@@ -1,0 +1,48 @@
+body {
+	background-color: #404040;
+}
+.post {
+	background-color: black;
+	color:#C0C0C0 ;
+}
+.container {
+	background-color: #009900;
+}
+.center {
+	margin-left: 10px;
+}
+.navbar-collapse {
+	background-color: black;
+}
+.index-background {
+	background-color: black;
+}
+.navbar-spacer-background {
+	height:100px;
+	background-image: url(/img/spacer.jpg);
+}
+
+.blog-wrapper {
+	background-color: black;
+}
+.blog-meat {
+	text-indent: 10px;
+	background-color: black;
+}
+.create-post {
+	text-align: center;
+}
+#margin-button {
+	margin-bottom: 10px;
+}
+.page-not-found {
+	font-size: 100px;
+	text-align: center;
+	color:white;
+	background-color: black;
+	margin:auto;
+}
+.page-not-found-image {
+	background-image: url(/img/yoda.gif);
+	height:630px;
+}

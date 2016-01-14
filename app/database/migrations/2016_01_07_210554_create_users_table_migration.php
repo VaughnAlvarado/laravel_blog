@@ -21,8 +21,6 @@ class CreateUsersTableMigration extends Migration {
 			$table->string('email', 150)->unique();
 			$table->string('password', 100);
 			$table->date('birthday');
-			$table->string('phone_number', 20)->nullable();
-			$table->integer('zipcode');
 			$table->timestamps();
 		});
 	}

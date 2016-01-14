@@ -9,7 +9,8 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return 'all posts';
+		$posts = Post::paginate(5);
+		return View::make('index')->with(['posts' => $posts]);
 	}
 
 
@@ -31,15 +32,17 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$post = new Post();
-		$post->title = Input::get('title');
-		$post->title = Input::get('body');
-		$result = $post->save();
+		$validator = Validator::make(Input::all(), Post::$rules);
 
-		if ($result) {
-			return Redirect::back()->withInput();
+		if($validator->fails()) {
+			return Redirect::back()->withInput()->withErrors($validator);
 		} else {
-			Redirect::back();
+			$post = new Post();
+			$post->subject = Input::get('subject');
+			$post->body = Input::get('body');
+			$post->user_id = 1;
+			$post->save();
+			return Redirect::action('PostsController@index');
 		}
 	}
 
@@ -50,9 +53,20 @@ class PostsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($idOrTitle)
 	{
-		$post = Post::find($id);
+		if (is_numeric($idOrTitle)) {
+			$post = Post::find($idOrTitle);
+		} else {
+			$post = Post::where('slug_title', '=', $idOrTitle)->first();
+		}
+		if(!$post) {
+			App::abort(404);
+		} else {
+			Log::info('This is some useful information.');
+		}
+		return View::make('show')->with(['post' => $post]);
+		
 	}
 
 
@@ -62,9 +76,19 @@ class PostsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($idOrTitle)
 	{
-		return 'An edit for this';
+		if (is_numeric($idOrTitle)) {
+			$post = Post::find($idOrTitle);
+		} else {
+			$post = Post::where('slug_title', '=', $idOrTitle)->first();
+		}
+		if(!$post) {
+			App::abort(404);
+		} else {
+			Log::info('This is some useful information.');
+		}
+		return View::make('edit')->with(['post' => $post]);
 	}
 
 
@@ -74,9 +98,24 @@ class PostsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($idOrTitle)
 	{
-		return 'This is an update post';
+		$validator = Validator::make(Input::all(), Post::$rules);
+
+		if($validator->fails()) {
+			return Redirect::back()->withInput()->withErrors($validator);
+		} else {
+			if (is_numeric($idOrTitle)) {
+				$post = Post::find($idOrTitle);
+			} else {
+				$post = Post::where('slug_title', '=', $idOrTitle)->first();
+			}
+			$post->subject = Input::get('subject');
+			$post->body = Input::get('body');
+			$post->user_id = 1;
+			$post->save();
+			return Redirect::action('PostsController@index');
+		}
 	}
 
 
@@ -86,9 +125,15 @@ class PostsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($idOrTitle)
 	{
-		return 'destroy';
+		if (is_numeric($idOrTitle)) {
+				$post = Post::find($idOrTitle);
+		} else {
+				$post = Post::where('slug_title', '=', $idOrTitle)->first();
+		}
+		$post->delete();
+		return Redirect::action('PostsController@index');
 	}
 
 
