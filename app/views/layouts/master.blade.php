@@ -30,14 +30,18 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
         		</button>
-        		<a class="navbar-brand" href="{{{ action('PostsController@index') }}}" >Home</a>
+        		<a class="navbar-brand">Blog</a>
      		</div>
       			<div id="navbar" class="navbar-collapse collapse">
         			<ul class="nav navbar-nav">
-                <li class='active' ><a href="#contact">Login</a></li>
-				        <li><a href="{{{ action('PostsController@create') }}}" >Create Post</a></li>
-				        <li><a href="#contact">Create User</a></li>
-                <li><a href="#contact">Logout</a></li>
+                <li><a href="{{{ action('PostsController@index') }}}">Home</a></li>
+                <li><a href="{{{ action('PostsController@create') }}}" >Create Post</a></li>
+                @if (Auth::user() == null) 
+                <li><a href=" {{{ action('AuthController@signUp') }}}" >Sign Up</a></li>
+                <li class = 'active'><a href=" {{{ action('AuthController@getLogin') }}}">Login</a></li>
+                @else
+                <li class = 'active'><a href="{{{ action('AuthController@getLogout') }}}">Logout</a></li>
+                @endif
         			</ul>
       			</div>
   		</nav>

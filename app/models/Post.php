@@ -12,13 +12,17 @@ class Post extends BaseModel
     );
 
 
-	public function setTitleAttributes($value) 
+	public function setSubjectAttribute($value) 
 	{
-		$this->attributes['title'] = $value;
-		$this->attributes['slug_title'] = Str::slug($value);
+		$this->attributes['subject'] = $value;
+		$this->attributes['slug_title'] = uniqid() . '' . Str::slug($value);
 	}
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('user');
+	}
+	public function categories()
+	{
+		return $this->belongToMany('Category');
 	}
 }

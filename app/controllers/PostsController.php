@@ -1,7 +1,12 @@
 <?php
 
 class PostsController extends \BaseController {
-
+	public function __construct()
+	{
+		parent:: __construct();
+		//only picks the functions you want to protect, except picks the ones you dont want 
+		$this->beforeFilter('auth', array('except' => array('index', 'show')));
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +14,23 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$posts = Post::paginate(5);
+		//----> possible chaining of queries with laravel
+		// $query = Post::with('user');
+
+		//---> to check if there is a search (use Input::get and put that variable inside of the queries like title 1)
+		//if (Input::has('search')) {
+
+		// $query->where('title', 'like', '%title 1');
+		// $query->orWhere('body', 'like', '%body 1');
+
+		// whereHas takes in 2 parameters, 1 function name like user, 2 function q
+		// $query->orWhereHas('user', function($q){
+		// 	$q->where('email','like', '%codeup%');
+		// })
+			//}
+		// $posts = $query->paginate(4);
+
+		$posts = Post::with('user')->paginate(5);
 		return View::make('index')->with(['posts' => $posts]);
 	}
 
@@ -40,7 +61,7 @@ class PostsController extends \BaseController {
 			$post = new Post();
 			$post->subject = Input::get('subject');
 			$post->body = Input::get('body');
-			$post->user_id = 1;
+			$post->user_id = Auth::id();
 			$post->save();
 			return Redirect::action('PostsController@index');
 		}
@@ -112,7 +133,7 @@ class PostsController extends \BaseController {
 			}
 			$post->subject = Input::get('subject');
 			$post->body = Input::get('body');
-			$post->user_id = 1;
+			$post->user_id = Auth::id();
 			$post->save();
 			return Redirect::action('PostsController@index');
 		}

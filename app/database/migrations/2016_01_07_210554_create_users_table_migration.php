@@ -21,6 +21,7 @@ class CreateUsersTableMigration extends Migration {
 			$table->string('email', 150)->unique();
 			$table->string('password', 100);
 			$table->date('birthday');
+			$table->rememberToken();
 			$table->timestamps();
 		});
 	}

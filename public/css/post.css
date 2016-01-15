@@ -46,3 +46,6 @@ body {
 	background-image: url(/img/yoda.gif);
 	height:630px;
 }
+.signup-link {
+	color:black;
+}

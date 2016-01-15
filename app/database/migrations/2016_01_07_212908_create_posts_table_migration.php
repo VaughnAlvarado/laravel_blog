@@ -19,7 +19,7 @@ class CreatePostsTableMigration extends Migration {
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
 			$table->string('subject');
 			$table->text('body');
-			$table->string('slug_title');
+			$table->string('slug_title')->unique();
 			$table->timestamps();
 		});
 	}

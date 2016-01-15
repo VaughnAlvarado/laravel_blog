@@ -19,6 +19,15 @@ Route::get('/rolldice/{guess?}', 'HomeController@showDice');
 Route::get('/sayhello/{name?}', 'HomeController@sayHello');
 
 // Route::get('/posts/search/{search}, PostsController@search');
+Route::get('create-user', 'AuthController@signUp');
+
+Route::post('create-user', 'AuthController@storeSignUp');
+
+Route::get('login', 'AuthController@getLogin');
+
+Route::post('login', 'AuthController@postLogin');
+
+Route::get('logout', 'AuthController@getLogout');
 
 Route::resource('/posts', 'PostsController');
 
